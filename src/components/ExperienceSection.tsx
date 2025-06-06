@@ -36,87 +36,93 @@ const ExperienceSection = () => {
   ];
 
   return (
-    <section className="py-20 bg-gradient-to-b from-portfolio-gray to-portfolio-dark">
+    <section className="py-12 md:py-20 bg-gradient-to-b from-portfolio-gray to-portfolio-dark">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl lg:text-6xl font-bold text-white mb-4">
+        <div className="text-center mb-12 md:mb-16">
+          <h2 className="text-3xl md:text-4xl lg:text-6xl font-bold text-white mb-4">
             Professional <span className="gradient-text">Experience</span>
           </h2>
-          <p className="text-xl text-gray-400 max-w-3xl mx-auto">
+          <p className="text-lg md:text-xl text-gray-400 max-w-3xl mx-auto">
             Impactful contributions across diverse software development roles
           </p>
         </div>
 
         <div className="relative">
-          {/* Timeline Line */}
-          <div className="absolute left-1/2 transform -translate-x-px h-full w-0.5 bg-gradient-to-b from-blue-500 to-purple-600"></div>
+          {/* Timeline Line - Hidden on mobile */}
+          <div className="hidden lg:block absolute left-1/2 transform -translate-x-px h-full w-0.5 bg-gradient-to-b from-blue-500 to-purple-600"></div>
 
           {/* Experience Items */}
-          <div className="space-y-12">
+          <div className="space-y-8 md:space-y-12">
             {experiences.map((experience, index) => (
               <div
                 key={experience.id}
-                className={`relative flex items-center ${
+                className={`relative flex flex-col lg:flex-row items-center ${
                   index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'
-                } flex-col lg:space-x-12`}
+                } lg:space-x-8 xl:space-x-12`}
               >
-                {/* Timeline Dot */}
-                <div className="absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-blue-500 rounded-full border-4 border-portfolio-dark z-10"></div>
+                {/* Timeline Dot - Hidden on mobile */}
+                <div className="hidden lg:block absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-blue-500 rounded-full border-4 border-portfolio-dark z-10"></div>
 
                 {/* Content Card */}
                 <div
                   className={`w-full lg:w-5/12 ${
-                    index % 2 === 0 ? 'lg:text-right lg:pr-8' : 'lg:text-left lg:pl-8'
+                    index % 2 === 0 ? 'lg:pr-4 xl:pr-8' : 'lg:pl-4 xl:pl-8'
                   } animate-slide-up`}
                   style={{animationDelay: `${index * 0.2}s`}}
                 >
-                  <div className="glass-card p-6 rounded-2xl hover:scale-105 transition-all duration-300">
-                    <div className="flex items-center space-x-4 mb-4">
-                      <div className="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center overflow-hidden lg:hidden">
+                  <div className="glass-card p-6 md:p-8 rounded-2xl hover:scale-105 transition-all duration-300 shadow-lg">
+                    {/* Mobile Logo */}
+                    <div className="flex items-center space-x-4 mb-6 lg:hidden">
+                      <div className="w-16 h-16 bg-white/10 rounded-xl flex items-center justify-center overflow-hidden animate-pulse">
                         <img
                           src={experience.logo}
                           alt={`${experience.company} logo`}
-                          className="w-8 h-8 object-contain"
+                          className="w-12 h-12 object-contain"
                           onError={(e) => {
                             const target = e.target as HTMLImageElement;
                             target.style.display = 'none';
                             const parent = target.parentElement;
                             if (parent) {
-                              parent.innerHTML = '<Building2 class="w-6 h-6 text-blue-400" />';
+                              parent.innerHTML = '<Building2 class="w-8 h-8 text-blue-400" />';
                             }
                           }}
                         />
                       </div>
-                      <div className={index % 2 === 0 ? 'lg:text-right' : 'lg:text-left'}>
-                        <h3 className="text-xl font-bold text-white">{experience.company}</h3>
-                        <p className="text-blue-400 font-medium">{experience.role}</p>
+                      <div className="text-left">
+                        <h3 className="text-xl md:text-2xl font-bold text-white">{experience.company}</h3>
+                        <p className="text-blue-400 font-medium text-sm md:text-base">{experience.role}</p>
                       </div>
                     </div>
 
-                    <div className={`flex items-center space-x-4 mb-4 ${
-                      index % 2 === 0 ? 'lg:justify-end' : 'lg:justify-start'
-                    } justify-center`}>
+                    {/* Desktop Company Info */}
+                    <div className="hidden lg:block text-left mb-6">
+                      <h3 className="text-2xl xl:text-3xl font-bold text-white mb-2">{experience.company}</h3>
+                      <p className="text-blue-400 font-medium text-lg">{experience.role}</p>
+                    </div>
+
+                    {/* Date and Location */}
+                    <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-6 space-y-2 sm:space-y-0 mb-6 text-left">
                       <div className="flex items-center space-x-2 text-gray-400">
-                        <Calendar className="w-4 h-4" />
-                        <span className="text-sm">{experience.period}</span>
+                        <Calendar className="w-4 h-4 flex-shrink-0" />
+                        <span className="text-sm md:text-base">{experience.period}</span>
                       </div>
                       <div className="flex items-center space-x-2 text-gray-400">
-                        <MapPin className="w-4 h-4" />
-                        <span className="text-sm">{experience.location}</span>
+                        <MapPin className="w-4 h-4 flex-shrink-0" />
+                        <span className="text-sm md:text-base">{experience.location}</span>
                       </div>
                     </div>
 
-                    <p className="text-gray-300 leading-relaxed mb-4">
+                    {/* Description - Justified text */}
+                    <p className="text-gray-300 leading-relaxed mb-6 text-justify text-sm md:text-base">
                       {experience.description}
                     </p>
 
-                    <div className={`flex flex-wrap gap-2 ${
-                      index % 2 === 0 ? 'lg:justify-end' : 'lg:justify-start'
-                    } justify-center`}>
+                    {/* Technologies */}
+                    <div className="flex flex-wrap gap-2 text-left">
                       {experience.technologies.map((tech) => (
                         <span
                           key={tech}
-                          className="tech-badge"
+                          className="tech-badge text-xs md:text-sm"
                         >
                           {tech}
                         </span>
@@ -125,21 +131,21 @@ const ExperienceSection = () => {
                   </div>
                 </div>
 
-                {/* Logo Side */}
+                {/* Logo Side - Desktop Only */}
                 <div className={`hidden lg:flex w-5/12 ${
-                  index % 2 === 0 ? 'justify-start pl-8' : 'justify-end pr-8'
+                  index % 2 === 0 ? 'justify-start pl-4 xl:pl-8' : 'justify-end pr-4 xl:pr-8'
                 } items-center`}>
-                  <div className="w-32 h-32 bg-white/5 rounded-2xl flex items-center justify-center p-6 glass-card hover:scale-105 transition-all duration-300">
+                  <div className="w-40 h-40 xl:w-48 xl:h-48 bg-white/5 rounded-3xl flex items-center justify-center p-8 glass-card hover:scale-110 hover:rotate-3 transition-all duration-500 animate-float shadow-xl hover:shadow-2xl hover:shadow-blue-500/20">
                     <img
                       src={experience.logo}
                       alt={`${experience.company} logo`}
-                      className="max-w-full max-h-full object-contain"
+                      className="max-w-full max-h-full object-contain filter hover:brightness-110 transition-all duration-300"
                       onError={(e) => {
                         const target = e.target as HTMLImageElement;
                         target.style.display = 'none';
                         const parent = target.parentElement;
                         if (parent) {
-                          parent.innerHTML = '<Building2 class="w-12 h-12 text-blue-400" />';
+                          parent.innerHTML = '<Building2 class="w-16 h-16 xl:w-20 xl:h-20 text-blue-400" />';
                         }
                       }}
                     />
