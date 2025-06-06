@@ -72,7 +72,7 @@ const ExperienceSection = () => {
                 >
                   <div className="glass-card p-6 rounded-2xl hover:scale-105 transition-all duration-300">
                     <div className="flex items-center space-x-4 mb-4">
-                      <div className="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center overflow-hidden">
+                      <div className="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center overflow-hidden lg:hidden">
                         <img
                           src={experience.logo}
                           alt={`${experience.company} logo`}
@@ -125,8 +125,26 @@ const ExperienceSection = () => {
                   </div>
                 </div>
 
-                {/* Spacer for the other side */}
-                <div className="hidden lg:block w-5/12"></div>
+                {/* Logo Side */}
+                <div className={`hidden lg:flex w-5/12 ${
+                  index % 2 === 0 ? 'justify-start pl-8' : 'justify-end pr-8'
+                } items-center`}>
+                  <div className="w-32 h-32 bg-white/5 rounded-2xl flex items-center justify-center p-6 glass-card hover:scale-105 transition-all duration-300">
+                    <img
+                      src={experience.logo}
+                      alt={`${experience.company} logo`}
+                      className="max-w-full max-h-full object-contain"
+                      onError={(e) => {
+                        const target = e.target as HTMLImageElement;
+                        target.style.display = 'none';
+                        const parent = target.parentElement;
+                        if (parent) {
+                          parent.innerHTML = '<Building2 class="w-12 h-12 text-blue-400" />';
+                        }
+                      }}
+                    />
+                  </div>
+                </div>
               </div>
             ))}
           </div>
